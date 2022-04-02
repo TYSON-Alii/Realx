@@ -8,12 +8,12 @@ public:
 	realx() = default;
 	realx(const realx<i_t, f_t>&) = default;
 	realx(const i_t& n) : num(n) { };
-	inline constexpr operator i_t() const { return num; };
-	inline constexpr auto& operator++() { num++; return *this; };
-	inline constexpr auto& operator--() { num--; return *this; };
-	inline constexpr auto& operator+=(const i_t& v) { num += v; return *this; };
-	inline constexpr auto& operator-=(const i_t& v) { num -= v; return *this; };
-	inline constexpr auto& operator/=(const i_t& v) {
+	inline operator i_t() const { return num; };
+	inline auto& operator++() { num++; return *this; };
+	inline auto& operator--() { num--; return *this; };
+	inline auto& operator+=(const i_t& v) { num += v; return *this; };
+	inline auto& operator-=(const i_t& v) { num -= v; return *this; };
+	inline auto& operator/=(const i_t& v) {
 		const auto& kalan = num % v;
 		num /= v;
 		payda *= v;
@@ -26,7 +26,7 @@ public:
 		sadelestir();
 		return *this;
 	};
-	inline constexpr auto& operator*=(const i_t& v) {
+	inline auto& operator*=(const i_t& v) {
 		num *= v;
 		pay *= v;
 		sadelestir();
