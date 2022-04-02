@@ -11,6 +11,68 @@ public:
 	inline operator i_t() const { return num; };
 	inline auto& operator++() { num++; return *this; };
 	inline auto& operator--() { num--; return *this; };
+	inline realx operator+(const i_t& v) const { auto t = *this; t.num += v; return t; };
+	inline realx operator-(const i_t& v) const { auto t = *this; t.num -= v; return t; };
+	inline realx operator+(const realx<i_t, f_t>& other) const {
+		auto t = *this;
+		t.num += other.num;
+		if (t.payda == other.payda)
+			t.pay += other.pay;
+		else {
+			t.pay *= other.payda;
+			const auto& t_pay = other.pay * t.payda;
+			t.payda = other.payda * t.payda;
+			t.pay += t_pay;
+		};
+		t.sadelestir();
+		return t;
+	};
+	inline realx operator-(const realx<i_t, f_t>& other) const {
+		auto t = *this;
+		t.num -= other.num;
+		if (t.payda == other.payda) {
+			if (t.pay > other.pay)
+				t.pay -= other.pay;
+			else {
+				t.pay = t.payda - (other.pay - t.pay);
+				t.num--;
+			};
+		}
+		else {
+			t.pay *= other.payda;
+			const auto& t_pay = other.pay * t.payda;
+			t.payda = other.payda * t.payda;
+			if (t.pay > other.pay)
+				t.pay -= t_pay;
+			else {
+				t.pay = t.payda - (other.pay - t.pay);
+				t.num--;
+			};
+		};
+		t.sadelestir();
+		return t;
+	};
+	inline realx operator/(const i_t& v) const {
+		auto t = *this;
+		const auto& kalan = t.num % v;
+		t.num /= v;
+		t.payda *= v;
+		if (kalan != 0) {
+			t.pay *= v;
+			const auto& t_pay = kalan * t.payda;
+			t.payda = v * t.payda;
+			t.pay += t_pay;
+		};
+		t.sadelestir();
+		return t;
+	};
+	inline realx operator*(const i_t& v) const {
+		auto t = *this;
+		t.num *= v;
+		t.pay *= v;
+		t.sadelestir();
+		return t;
+	};
 	inline auto& operator+=(const i_t& v) { num += v; return *this; };
 	inline auto& operator-=(const i_t& v) { num -= v; return *this; };
 	inline auto& operator/=(const i_t& v) {
