@@ -1,5 +1,5 @@
 ## Realx
-
+Rasyonel kayan noktalı sayı sistemi.
 ```cpp
 auto main() -> int {
 	real num = 3;
