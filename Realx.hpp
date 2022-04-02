@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 template <typename i_t, typename f_t>
 class realx {
 	friend realx;
