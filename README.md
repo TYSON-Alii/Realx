@@ -4,16 +4,16 @@ Rasyonel kayan noktalı sayı sistemi.
 auto main() -> int {
 	cout << setprecision(50);
 	real num = 1000;
-	cout << "real: 1000 / 7 = " << num / 7 << " size of: " << sizeof(num) << '\n';
+	cout << "real: 1000 / 17 = " << num / 17 << " size of: " << sizeof(num) << '\n';
 	float num2 = 1000.f;
-	cout << "f32: 1000 / 7 = " << num2 / 7 << " size of: " << sizeof(num2) << '\n';
+	cout << "f32: 1000 / 17 = " << num2 / 17 << " size of: " << sizeof(num2) << '\n';
 	double num3 = 1000.0;
-	cout << "f64: 1000 / 7 = " << num3 / 7 << " size of: " << sizeof(num3) << '\n';
+	cout << "f64: 1000 / 17 = " << num3 / 17 << " size of: " << sizeof(num3) << '\n';
 };
 /*
 # OUTPUT:
-real: 1000 / 7 = 142.857142.. size of: 8 // not wrong
-f32: 1000 / 7 = 142.857147216796875 size of: 4 // wrong after 5 digit
-f64: 1000 / 7 = 142.857142857142861203101347200572490692138671875 size of: 8 // wrong after 11 digit
+real: 1000 / 17 = 58.8235294117647058.. size of: 8 // correct
+f32: 1000 / 17 = 58.823528289794921875 size of: 4 // wrong after a while
+f64: 1000 / 17 = 58.82352941176470295658873510546982288360595703125 size of: 8 // wrong after a while
 */
 ```
