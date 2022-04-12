@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 using namespace std;
 template <typename i_t, typename f_t>
 class realx {
@@ -9,6 +10,34 @@ public:
 	realx(const realx<i_t, f_t>&) = default;
 	realx(const i_t& n) : num(n) { };
 	inline operator i_t() const { return num; };
+	operator std::string() const {
+		std::stringstream ss;
+		auto& v = *this;
+		if (v.pay == 0) {
+			ss << v.num << ".0";
+			return ss.str();
+		}
+		else {
+			ss << v.num << '.';
+			auto pay = v.pay;
+			auto payda = v.payda;
+			pay *= 10;
+			f_t _kalan, __kalan, ___kalan = 0;
+			bool first_digit = false;
+			do {
+				_kalan = pay % payda;
+				if (!first_digit) ___kalan = _kalan;
+				ss << pay / payda;
+				pay = pay % payda;
+				pay *= 10;
+				__kalan = pay % payda;
+				first_digit = true;
+			} while(__kalan != 0 and _kalan != __kalan and __kalan != ___kalan);
+			if (__kalan == ___kalan and __kalan != 0)
+				ss << "..";
+			return ss.str();
+		};
+	};
 	inline auto& operator++() { num++; return *this; };
 	inline auto& operator--() { num--; return *this; };
 	inline realx operator+(const i_t& v) const { auto t = *this; t.num += v; return t; };
@@ -133,30 +162,7 @@ public:
 		sadelestir();
 		return *this;
 	};
-	friend std::ostream& operator<<(std::ostream& os, const realx<i_t, f_t>& v) {
-		if (v.pay == 0)
-			return os << v.num << ".0";
-		else {
-			os << v.num << '.';
-			auto pay = v.pay;
-			auto payda = v.payda;
-			pay *= 10;
-			f_t _kalan, __kalan, ___kalan = 0;
-			bool first_digit = false;
-			do {
-				_kalan = pay % payda;
-				if (!first_digit) ___kalan = _kalan;
-				os << pay / payda;
-				pay = pay % payda;
-				pay *= 10;
-				__kalan = pay % payda;
-				first_digit = true;
-			} while(__kalan != 0 and _kalan != __kalan and __kalan != ___kalan);
-			if (__kalan == ___kalan and __kalan != 0)
-				os << "..";
-			return os;
-		};
-	};
+	friend inline std::ostream& operator<<(std::ostream& os, const realx<i_t, f_t>& v) { return os << (std::string)v; };
 private:
 	void sadelestir() {
 		if (pay == payda) {
